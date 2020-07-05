@@ -1,0 +1,36 @@
+dsl Ness
+
+Event Sample
+	Attribute id as Text
+	Attribute type as Text
+	Attribute where as Text
+	Component(multiple = false) Request
+		Attribute urgency as Bool
+		Attribute who as Text
+	Component(multiple = false) Environmental
+		Attribute type as Text
+	Component(multiple = false) Individual
+		Attribute id as Text
+		Attribute gender as Word("MALE, FEMALE")
+		Attribute birthday as DateTime
+
+Event Culture
+	Attribute id as Text
+	Attribute type as Text
+	Component Isolate
+		Attribute code as Text
+		Attribute morphology as Text
+		Attribute gram as Word("POSITIVE, NEGATIVE")
+
+Event Antibiogram
+	Attribute id as Text
+	Attribute isolate as Text
+	Component Identification
+		Attribute technique as Text
+		Attribute result as Word("POSITIVE, NEGATIVE")
+		Attribute organism as Text
+	Component AntibioticResponse
+		Attribute technique as Text
+		Attribute antibiotic as Text
+		Attribute response as Word("RESISTENTE, INTERMEDIO, SENSIBLE")
+		Attribute cmi as Text

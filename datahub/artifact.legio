@@ -1,0 +1,35 @@
+dsl Legio
+
+Artifact(groupId = "es.ulpgc", version = "1.0.0") data-hub as Solution
+    Model(language = "Ness", version = "4.6.2", sdk = "4.1.1")
+    Box("Konos", "8.8.3")
+	Imports
+		Compile("io.intino.alexandria", "core-framework", "2.0.4")
+
+	Package(mode = ModulesAndLibrariesLinkedByManifest) as Runnable("es.ulpgc.datahub.Main")
+	IntinoPlugin(artifact = "io.intino.ness:data-hub-terminal-plugin:2.7.7", pluginClass = "io.intino.ness.datahubterminalplugin.DataHubTerminalsPluginLauncher", phase=Export)
+
+	Parameter("datalake_directory")
+	Parameter("broker_port")
+	Parameter("broker_secondary_port")
+	Parameter("ui_port")
+
+	Parameter("stage_directory")
+    Parameter("broker_directory")
+    Parameter("backup_directory")
+    Parameter("home")
+
+Repository(identifier = "intino-maven")
+    Language(url = "https://artifactory.intino.io/artifactory/releases")
+    Release(url = "https://artifactory.intino.io/artifactory/releases")
+
+RunConfiguration local
+	Argument("datalake_directory", "./temp/datalake")
+	Argument("broker_port", "63001")
+	Argument("broker_secondary_port", "1884")
+	Argument("ui_port", "9020")
+
+	Argument("home", "./temp/datahub")
+	Argument("stage_directory", "./temp/datahub/stage")
+	Argument("broker_directory", "./temp/datahub/broker")
+	Argument("backup_directory", "./temp/backup")

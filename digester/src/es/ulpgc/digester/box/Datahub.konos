@@ -1,0 +1,7 @@
+dsl Konos
+
+Datalake(path = "{datalake_directory}") as Local
+
+Subscriber(event = "Sample", subscriberId = "sampleDigestion") sampleSubscriber
+Subscriber(event = "Antibiogram", subscriberId = "antibiogramDigestion") antibiogramSubscriber
+Subscriber(event = "Culture", subscriberId = "cultureDigestion") cultureSubscriber

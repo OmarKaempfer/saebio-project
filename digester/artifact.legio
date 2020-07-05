@@ -1,0 +1,38 @@
+dsl Legio
+
+Artifact(groupId = "es.ulpgc", version = "1.0.0") digester as Product
+	Model(language = "Proteo", version = "3.0.0", sdk = "4.0.0")
+	DataHub("es.ulpgc.datahub", "digester-terminal", "1.0.0")
+	Box(language = "Konos", version = "8.8.3")
+	Imports
+		Compile("io.intino.alexandria", "core-framework", "2.0.4")
+		Compile(groupId = "io.intino.alexandria", artifactId = "datalake", version = "3.0.1")
+		Compile("es.ulpgc.datahub", "ontology", "1.0.0")
+		Test(groupId = "junit", artifactId = "junit", version = "4.12")
+		Test("pl.pragmatists", "JUnitParams", "1.1.1")
+		Test("org.assertj", "assertj-core", "3.11.1")
+	Package(mode = LibrariesLinkedByManifest) as Runnable("es.ulpgc.digester.box.Main")
+	Parameter("home")
+	Parameter("datahub_url")
+	Parameter("datahub_user")
+	Parameter("datahub_password")
+	Parameter("datahub_clientId")
+	Parameter("datahub_outbox_directory")
+	Parameter("datalake_directory")
+	Parameter("csv")
+
+Repository(identifier = "intino-maven")
+	Language(url = "https://artifactory.intino.io/artifactory/releases")
+	Release(url = "https://artifactory.intino.io/artifactory/releases")
+
+RunConfiguration local
+	Argument("datahub_user", "es.ulpgc.digester")
+	Argument("datahub_password", "es.ulpgc.digester")
+	Argument("datahub_clientId", "es.ulpgc.digester")
+
+	Argument("home", "./temp")
+	Argument("datahub_url", "failover:(tcp://localhost:63001)")
+	Argument("datahub_outbox_directory", "./temp/terminals")
+	Argument("csv", "./digester/res/Ejemplo estadistica.csv")
+
+	Argument("datalake_directory", "./temp/datalake")

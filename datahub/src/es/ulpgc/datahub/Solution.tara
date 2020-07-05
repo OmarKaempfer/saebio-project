@@ -1,0 +1,25 @@
+dsl Ness
+
+use Datahub
+
+Broker(path = empty, port = empty, secondaryPort = empty)
+	User("es.ulpgc.sensor", "es.ulpgc.sensor")
+	User("es.ulpgc.datamart", "es.ulpgc.datamart")
+	User("es.ulpgc.digester", "es.ulpgc.digester")
+
+Datalake(scale = Hour, path = empty) dl
+	Context es > Context ulpgc
+
+	Tank(event = Sample) individualSampled as Event Contextual(es.ulpgc)
+	Tank(event = Antibiogram) antibiogramDone as Event Contextual(es.ulpgc)
+	Tank(event = Culture) cultureIdentified as Event Contextual(es.ulpgc)
+
+Terminal publish-terminal
+	Publish(dl.individualSampled dl.antibiogramDone dl.cultureIdentified)
+
+Terminal suscribe-terminal
+	Subscribe(dl.individualSampled dl.antibiogramDone dl.cultureIdentified)
+
+Terminal digester-terminal
+	Publish(dl.individualSampled dl.antibiogramDone dl.cultureIdentified)
+	Subscribe(dl.individualSampled dl.antibiogramDone dl.cultureIdentified)
